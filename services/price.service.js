@@ -6,7 +6,7 @@ class Prices {
     this.instance = axios.create({
       baseURL: config.url,
       timeout: 1000,
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 'Content-Type': 'application/json', Accept: '*/*', Connection: 'keep-alive' }
     })
   }
 
