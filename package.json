@@ -1,0 +1,22 @@
+{
+  "name": "tekus-app",
+  "version": "1.0.0",
+  "description": "Simple app for show BTC price to USD.",
+  "main": "app.js",
+  "scripts": {
+    "start": "electron app.js"
+  },
+  "keywords": [
+    "BTC",
+    "USD",
+    "News",
+    "Economy"
+  ],
+  "author": "Michael Vega",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "dotenv": "^16.0.1",
+    "electron": "^19.0.10"
+  }
+}
