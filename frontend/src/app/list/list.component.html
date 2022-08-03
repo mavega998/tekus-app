@@ -1,0 +1,10 @@
+<h1>Precio Bitcoin</h1>
+<hr>
+<div class="row" *ngIf="items.length > 0">
+  <div class="col-12" *ngFor="let item of items; let index = index">
+    <app-item [data]='item' [index]="index"></app-item>
+  </div>
+</div>
+<div class="row" *ngIf="items.length === 0">
+  <span>Cargando...</span>
+</div>

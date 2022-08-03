@@ -1,0 +1,11 @@
+<swal #mySwal [title]="data?.date" [html]="subtitle()" icon="info"></swal>
+
+<div class="card m-1" style='cursor: pointer;' (click)="showDetail(); ">
+  <div class="card-body">
+    <div class="card-text">
+      <strong>{{ data?.date | date: 'MMM dd, yyyy' }} | </strong>
+      <span> 1 {{ data?.base }} -> {{ data?.currency1?.currency }} {{ data?.currency1?.amount |
+        currency:'USD':'symbol':'1.0-0' }}</span>
+    </div>
+  </div>
+</div>
