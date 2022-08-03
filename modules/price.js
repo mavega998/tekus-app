@@ -35,34 +35,34 @@ class CoinBase {
     }
   }
 
-  updateCurrencyEUR() {
-    setTimeout(async () => {
-      const data = JSON.parse(fs.readFileSync(config.db, { encoding: 'utf-8' }))
-      for(let item of data) {
-        try {
-          const result = await Prices.getSpotPrices(`${item.base}-EUR`, item.date)
-          item.currency2 = result.data.data
-        } catch (error) {
-          console.log('Error update EUR:', error)
-        }
-      }
-      fs.writeFileSync(config.db, JSON.stringify(data))
-    }, 10000)
+  async updateCurrencyEUR(date) {
+    const data = JSON.parse(fs.readFileSync(config.db, { encoding: 'utf-8' }))
+    const index = data.findIndex(el => el.date === date)
+    // console.log('EUR data', data[index])
+    try {
+      const result = await Prices.getSpotPrices(`${data[index].base}-EUR`, data[index].date)
+      data[index].currency2 = result.data.data
+    } catch (error) {
+      console.log('Error update EUR:', error)
+    }
+    // console.log('EUR', data[index])
+    fs.writeFileSync(config.db, JSON.stringify(data))
+    return data[index].currency2
   }
 
-  updateCurrencyCOP() {
-    setTimeout(async () => {
-      const data = JSON.parse(fs.readFileSync(config.db, { encoding: 'utf-8' }))
-      for(let item of data) {
-        try {
-          const result = await Prices.getSpotPrices(`${item.base}-COP`, item.date)
-          item.currency3 = result.data.data
-        } catch (error) {
-          console.log('Error update COP:', error)
-        }
-      }
-      fs.writeFileSync(config.db, JSON.stringify(data))
-    }, 10000)
+  async updateCurrencyCOP(date) {
+    const data = JSON.parse(fs.readFileSync(config.db, { encoding: 'utf-8' }))
+    const index = data.findIndex(el => el.date === date)
+    // console.log('COP data', data[index])
+    try {
+      const result = await Prices.getSpotPrices(`${data[index].base}-COP`, data[index].date)
+      data[index].currency3 = result.data.data
+    } catch (error) {
+      console.log('Error update EUR:', error)
+    }
+    // console.log('COP', data[index])
+    fs.writeFileSync(config.db, JSON.stringify(data))
+    return data[index].currency3
   }
 
   validCurrentDate() {
@@ -89,7 +89,7 @@ class CoinBase {
 
   async saveData() {
     const spotPrices = await this.getPricesBetween('BTC', 15)
-    this.updateCurrencyEUR()
+    // this.updateCurrencyEUR()
     // this.updateCurrencyCOP()
     if (typeof spotPrices !== 'string') {
       fs.writeFileSync(config.db, JSON.stringify(spotPrices))
